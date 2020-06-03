@@ -8,7 +8,7 @@ from models import setup_db, Book
 
 BOOKS_PER_SHELF = 8
 
-# @TODO: General Instructions
+# @TODONE: General Instructions
 #   - As you're creating endpoints, define them and then search for 'TODO' within the frontend to update the endpoints there. 
 #     If you do not update the endpoints, the lab will not work - of no fault of your API code! 
 #   - Make sure for each route that you're thinking through when to abort and with which kind of error 
@@ -27,7 +27,7 @@ def create_app(test_config=None):
     response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
     return response
 
-  # @TODO: Write a route that retrivies all books, paginated. 
+  # @TODONE: Write a route that retrivies all books, paginated. 
   #         You can use the constant above to paginate by eight books.
   #         If you decide to change the number of books per page,
   #         update the frontend to handle additional books in the styling and pagination
@@ -37,21 +37,21 @@ def create_app(test_config=None):
 
   
 
-  # @TODO: Write a route that will update a single book's rating. 
+  # @TODONE: Write a route that will update a single book's rating. 
   #         It should only be able to update the rating, not the entire representation
   #         and should follow API design principles regarding method and route.  
   #         Response body keys: 'success'
   # TEST: When completed, you will be able to click on stars to update a book's rating and it will persist after refresh
 
 
-  # @TODO: Write a route that will delete a single book. 
+  # @TODONE: Write a route that will delete a single book. 
   #        Response body keys: 'success', 'deleted'(id of deleted book), 'books' and 'total_books'
   #        Response body keys: 'success', 'books' and 'total_books'
 
   # TEST: When completed, you will be able to delete a single book by clicking on the trashcan.
 
 
-  # @TODO: Write a route that create a new book. 
+  # @TODONE: Write a route that create a new book. 
   #        Response body keys: 'success', 'created'(id of created book), 'books' and 'total_books'
   # TEST: When completed, you will be able to a new book using the form. Try doing so from the last page of books. 
   #       Your new book should show up immediately after you submit it at the end of the page. 

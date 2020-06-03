@@ -110,7 +110,8 @@ def create_app(test_config=None):
     def create_book():
         try:
             print(request.get_json())
-            book=Book(title=request.get_json()['title'],author=request.get_json()['author'],rating=request.get_json()['rating'])
+            book = Book(title=request.get_json()['title'], author=request.get_json()[
+                        'author'], rating=request.get_json()['rating'])
             book.insert()
             books = Book.query.order_by(Book.id).all()
             selection = paginate(books, request)
@@ -124,6 +125,37 @@ def create_app(test_config=None):
             print(sys.exc_info())
             abort(4)
 
+    @app.errorhandler(404)
+    def not_found(error):
+        return jsonify({
+            "success": "False",
+            "error": 404,
+            "messsage": "Resource not found"
+        }), 404
+
+    @app.errorhandler(422)
+    def not_processable(error):
+        return jsonify({
+            "success": "False",
+            "error": 422,
+            "messsage": "request cant be processed"
+        }), 422
+
+    @app.errorhandler(400)
+    def bad_request(error):
+        return jsonify({
+            "success": "False",
+            "error": 400,
+            "messsage": "bad request"
+        }), 400
+
+    @app.errorhandler(405)
+    def not_allowed(error):
+        return jsonify({
+            "success": "False",
+            "error": 405,
+            "messsage": "method not allowed"
+        }), 404
     # TEST: When completed, you will be able to a new book using the form. Try doing so from the last page of books.
     #       Your new book should show up immediately after you submit it at the end of the page.
 

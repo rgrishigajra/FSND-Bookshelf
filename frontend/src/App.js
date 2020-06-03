@@ -18,7 +18,7 @@ class App extends Component {
 
   getBooks = () => {
     $.ajax({
-      url: `/books?page=${this.state.page}`, //TODO: update request URL
+      url: `/books?page=${this.state.page}`, //TODONE: update request URL
       type: "GET",
       success: (result) => {
         this.setState({
@@ -37,7 +37,7 @@ class App extends Component {
   deleteBook = (id) => {
     if(window.confirm('Are you sure you want to delete the book?')) {
       $.ajax({
-        url: `/books/${id}`, //TODO: update request URL
+        url: `/books/${id}`, //TODONE: update request URL
         type: "DELETE",
         success: (result) => {
           this.getBooks();
@@ -55,7 +55,7 @@ class App extends Component {
     let targetBook = books.find((book) => book.id === id);
 
     $.ajax({
-      url: `/books/${id}`, //TODO: update request URL
+      url: `/books/${id}`, //TODONE: update request URL
       type: "PATCH",
       dataType: 'json',
       contentType: 'application/json',
@@ -73,7 +73,7 @@ class App extends Component {
 
   searchBooks = (search) => {
     $.ajax({
-      url: '/books', //TODO: update request URL
+      url: '/books', //TODONE: update request URL
       type: "POST",
       dataType: 'json',
       contentType: 'application/json',
