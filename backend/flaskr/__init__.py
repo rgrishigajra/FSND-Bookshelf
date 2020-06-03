@@ -110,17 +110,32 @@ def create_app(test_config=None):
     def create_book():
         try:
             print(request.get_json())
-            book = Book(title=request.get_json()['title'], author=request.get_json()[
-                        'author'], rating=request.get_json()['rating'])
-            book.insert()
-            books = Book.query.order_by(Book.id).all()
-            selection = paginate(books, request)
-            return jsonify({
-                "success": True,
-                "created": book.id,
-                "books": selection,
-                "total_books": len(books)
-            })
+            if 'search' in request.get_json():
+                books = Book.query.order_by(Book.id).filter(
+                    Book.title.ilike("%"+request.get_json()['search']+"%")).all()
+                select = [book.format() for book in books]
+                print(books)
+                if len(select)==0:
+                    return jsonify({"success": False,
+                                    "books": select,
+                                    "total_books": len(books)})
+                else:
+                    return jsonify({"success": True,
+                                    "books": select,
+                                    "total_books": len(books)})
+            else:
+                print(request.get_json())
+                book = Book(title=request.get_json()['title'], author=request.get_json()[
+                            'author'], rating=request.get_json()['rating'])
+                book.insert()
+                books = Book.query.order_by(Book.id).all()
+                selection = paginate(books, request)
+                return jsonify({
+                    "success": True,
+                    "created": book.id,
+                    "books": selection,
+                    "total_books": len(books)
+                })
         except:
             print(sys.exc_info())
             abort(422)

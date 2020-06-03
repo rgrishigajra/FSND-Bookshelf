@@ -59,7 +59,7 @@ class BookTestCase(unittest.TestCase):
         res = self.client().delete('/books/'+str(book_id[0][0]))
         data = json.loads(res.data)
         book = Book.query.get(book_id[0][0])
-        self.assertEqual(book,None)
+        self.assertEqual(book, None)
         self.assertEqual(data['success'], True)
         self.assertEqual(data['deleted'], book_id[0][0])
         self.assertTrue(data['total_books'])
@@ -97,6 +97,21 @@ class BookTestCase(unittest.TestCase):
         self.assertEqual(data['success'], False)
         self.assertEqual(data['message'], 'Resource not found')
 
+    def test_book_search_results(self):
+        res = self.client().post('/books', json={"search": "Anansi"})
+        data = json.loads(res.data)
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertTrue(data['total_books'])
+        self.assertTrue(len(data['books']))
+    
+    def test_book_search_results_null(self):
+        res = self.client().post('/books', json={"search": "ladhfjjdfkljsdlkfjskldflkfjdslf"})
+        data = json.loads(res.data)
+        print(data)
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['total_books'],0)
+        self.assertFalse(len(data['books']))
 # @TODONE: Write at least two tests for each endpoint - one each for success and error behavior.
 #        You can feel free to write additional tests for nuanced functionality,
 #        Such as adding a book without a rating, etc.
