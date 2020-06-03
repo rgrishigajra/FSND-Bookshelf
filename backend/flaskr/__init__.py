@@ -47,7 +47,7 @@ def create_app(test_config=None):
     def get_books():
         books = Book.query.order_by(Book.id).all()
         selection = paginate(books, request)
-        if len(selection) is None:
+        if len(selection) == 0:
             abort(404)
         return jsonify({
             "success": True,
@@ -83,7 +83,7 @@ def create_app(test_config=None):
     @app.route('/books/<int:book_id>', methods=['DELETE'])
     def delete_book(book_id):
         try:
-            print("oi")
+
             book = Book.query.get(book_id)
             if book is None:
                 abort(404)
@@ -123,38 +123,38 @@ def create_app(test_config=None):
             })
         except:
             print(sys.exc_info())
-            abort(4)
+            abort(422)
 
     @app.errorhandler(404)
     def not_found(error):
         return jsonify({
-            "success": "False",
+            "success": False,
             "error": 404,
-            "messsage": "Resource not found"
+            "message": "Resource not found"
         }), 404
 
     @app.errorhandler(422)
     def not_processable(error):
         return jsonify({
-            "success": "False",
+            "success": False,
             "error": 422,
-            "messsage": "request cant be processed"
+            "message": "request cant be processed"
         }), 422
 
     @app.errorhandler(400)
     def bad_request(error):
         return jsonify({
-            "success": "False",
+            "success": False,
             "error": 400,
-            "messsage": "bad request"
+            "message": "bad request"
         }), 400
 
     @app.errorhandler(405)
     def not_allowed(error):
         return jsonify({
-            "success": "False",
+            "success": False,
             "error": 405,
-            "messsage": "method not allowed"
+            "message": "method not allowed"
         }), 404
     # TEST: When completed, you will be able to a new book using the form. Try doing so from the last page of books.
     #       Your new book should show up immediately after you submit it at the end of the page.
