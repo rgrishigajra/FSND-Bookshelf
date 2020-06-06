@@ -225,8 +225,9 @@ The API will return three error types when requests fail:
 
 ## Deployment N/A
 
-## Authors
-Yours truly, Coach Caryn 
+## Authors 
+Yours truly, Coach Caryn  Main author and reference 
+Rishabh Gajra, follow aling on my own then comparing with reference to check quality 
 
 ## Acknowledgements 
 The awesome team at Udacity and all of the students, soon to be full stack extraordinaires! 
